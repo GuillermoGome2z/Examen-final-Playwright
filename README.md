@@ -1,99 +1,170 @@
-# QA Automation · Buggy Cars Rating
+<div align="center">
 
-Pruebas de las historias de usuario HU-1, HU-2 y HU-3 sobre [Buggy Cars Rating](https://buggy.justtestit.org/): 3 casos automatizados con **Playwright + TypeScript** y 2 casos manuales.
+# 🚗 Buggy Cars Rating · QA Testing
 
-Universidad Mariano Gálvez de Guatemala
-Curso 048 · Aseguramiento de la Calidad del Software · III Serie
+**Pruebas funcionales automatizadas y manuales sobre [Buggy Cars Rating](https://buggy.justtestit.org/)**
 
-| Dato | Valor |
-|------|-------|
-| Estudiante | Guillermo Jose Gomez Aguilera |
-| Carné | 1790-22-16429 |
+![Playwright](https://img.shields.io/badge/Playwright-1.61.1-2EAD33?logo=playwright&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-24-339933?logo=nodedotjs&logoColor=white)
+![Chromium](https://img.shields.io/badge/Chromium-149-4285F4?logo=googlechrome&logoColor=white)
 
-## Navegador y herramientas
+Universidad Mariano Gálvez de Guatemala · Aseguramiento de la Calidad del Software · III Serie
 
-| Herramienta | Versión |
-|-------------|---------|
-| Navegador | **Chromium 149.0.7827.55** (perfil Desktop Chrome de Playwright) |
-| Playwright | 1.61.1 |
-| Node.js | v24.18.0 |
-| npm | 11.16.0 |
-| Sistema operativo | Windows 11 |
+**Guillermo José Gómez Aguilera** · Carné 1790-22-16429
 
-## Estructura del proyecto
+</div>
+
+---
+
+## 📋 Contenido
+
+- [Sobre el proyecto](#-sobre-el-proyecto)
+- [Historias de usuario](#-historias-de-usuario)
+- [Casos de prueba](#-casos-de-prueba)
+- [Defectos encontrados](#-defectos-encontrados)
+- [Instalación](#-instalación)
+- [Ejecución](#-ejecución)
+- [Estructura del repositorio](#-estructura-del-repositorio)
+- [Documentación y evidencias](#-documentación-y-evidencias)
+
+---
+
+## 🎯 Sobre el proyecto
+
+Este repositorio reúne el plan de pruebas de tres historias de usuario del sitio Buggy Cars Rating:
+
+- **3 casos automatizados** con Playwright y TypeScript, organizados con el patrón **Page Object Model**.
+- **2 casos manuales** ejecutados en el navegador, con capturas de pantalla como evidencia.
+- **Tabla de casos de prueba** en Excel y **reporte de defectos** en Word.
+
+## 📖 Historias de usuario
+
+| ID | Historia | Criterios probados |
+|:--:|----------|--------------------|
+| **HU-1** | **Registro de usuario.** Como usuario del sitio, quiero registrar mi usuario y mi clave para crear mis credenciales de acceso. | C2 · Clave de mínimo 6 caracteres con mayúscula y carácter especial<br>C4 · Ambas claves deben coincidir |
+| **HU-2** | **Actualizar perfil.** Como usuario registrado, quiero actualizar mi perfil y mi clave para mantener mis datos al día. | C2 · Nueva clave de mínimo 10 caracteres con mayúscula, minúscula, número y carácter especial<br>C3 · Nombre y apellido son obligatorios |
+| **HU-3** | **Votar por autos.** Como visitante o usuario, quiero votar por un auto para conocer los que más llaman la atención. | C4 · A quien no ha iniciado sesión se le informa que debe hacerlo para votar |
+
+## 🧪 Casos de prueba
+
+| Caso | Descripción | HU · Criterio | Tipo | Resultado |
+|:----:|-------------|:-------------:|:----:|:---------:|
+| **1** | Registro con una confirmación de clave distinta | HU-1 · C4 | 🤖 Automatizado | ✅ Pass |
+| **2** | Registro con una clave de 6 caracteres que cumple la historia | HU-1 · C2 | 🤖 Automatizado | ❌ Fail · DEF-01 |
+| **3** | Primer auto de Overall Rating sin iniciar sesión | HU-3 · C4 | 🤖 Automatizado | ✅ Pass |
+| **4** | Cambio de clave en el perfil por una de 8 caracteres | HU-2 · C2 | 🖐️ Manual | ❌ Fail · DEF-02 |
+| **5** | Guardar el perfil con el nombre vacío | HU-2 · C3 | 🖐️ Manual | ✅ Pass |
+
+> [!NOTE]
+> Los tests verifican el comportamiento que definen las historias de usuario. Cuando el sitio responde distinto, el resultado se registra como defecto. Por eso la ejecución de la suite muestra **2 passed · 1 failed**: el Caso 2 detecta el defecto DEF-01.
+
+## 🐞 Defectos encontrados
+
+| ID | Defecto | Origen | Severidad | Prioridad |
+|:--:|---------|:------:|:---------:|:---------:|
+| **DEF-01** | El registro rechaza una clave de 6 caracteres que cumple la HU-1 (el sitio exige 8) | Caso 2 | Alta | P1 |
+| **DEF-02** | El perfil acepta una clave nueva de 8 caracteres, aunque la HU-2 pide mínimo 10 | Caso 4 | Alta | P2 |
+
+## ⚙️ Instalación
+
+**Requisitos:** [Node.js](https://nodejs.org/) 18 o superior y [Git](https://git-scm.com/).
+
+```bash
+# 1. Clonar el repositorio
+git clone https://github.com/GuillermoGome2z/Examen-final-Playwright.git
+cd Examen-final-Playwright
+
+# 2. Instalar dependencias
+npm install
+
+# 3. Instalar el navegador
+npx playwright install chromium
+```
+
+> [!TIP]
+> El archivo `.npmrc` incluye `ignore-scripts=true` para instalar dependencias de forma segura. Por eso el navegador se instala en un paso aparte con `npx playwright install chromium`.
+
+## ▶️ Ejecución
+
+| Comando | Qué hace |
+|---------|----------|
+| `npx playwright test` | Ejecuta los 3 tests automatizados |
+| `npx playwright test tests/hu01-registro.spec.ts` | Ejecuta los casos 1 y 2 |
+| `npx playwright test tests/hu03-votacion.spec.ts` | Ejecuta el caso 3 |
+| `npx playwright show-report` | Abre el reporte HTML de la última ejecución |
+| `npx playwright test --ui` | Abre el modo interactivo de Playwright |
+
+También están disponibles los atajos `npm test`, `npm run report` y `npm run test:ui`.
+
+### 🌐 Navegador utilizado
+
+| | |
+|---|---|
+| **Navegador** | Chromium 149.0.7827.55 (perfil *Desktop Chrome* de Playwright) |
+| **Modo** | Con interfaz visible (`headless: false`) |
+| **Sistema operativo** | Windows 11 |
+| **Sitio** | https://buggy.justtestit.org |
+
+## 📁 Estructura del repositorio
 
 ```
-buggy-cars-rating-playwright/
-├── docs/
-│   ├── casos-de-prueba.md      # Tabla de los 5 casos con su resultado
-│   └── reporte-de-defectos.md  # Defectos encontrados
-├── evidencias/                 # Capturas de la ejecución
-├── pages/                      # Page Objects
+📦 Examen-final-Playwright
+├── 📂 docs
+│   ├── 📊 Casos_de_prueba_Buggy_Cars.xlsx     Tabla de casos de prueba
+│   ├── 📝 Reporte_de_defectos_Buggy_Cars.docx Reporte de defectos
+│   ├── casos-de-prueba.md                     Casos en Markdown con capturas
+│   └── reporte-de-defectos.md                 Defectos en Markdown
+├── 📂 evidencias                              Capturas de la ejecución
+├── 📂 pages                                   Page Objects
 │   ├── HomePage.ts
 │   ├── ModelPage.ts
 │   ├── OverallRatingPage.ts
 │   └── RegisterPage.ts
-├── tests/
-│   ├── hu01-registro.spec.ts   # Casos 1 y 2
-│   └── hu03-votacion.spec.ts   # Caso 3
-├── .gitignore
-├── .npmrc
-├── package.json
+├── 📂 tests
+│   ├── hu01-registro.spec.ts                  Casos 1 y 2
+│   └── hu03-votacion.spec.ts                  Caso 3
 ├── playwright.config.ts
-└── tsconfig.json
+├── package.json
+├── tsconfig.json
+├── .npmrc
+└── .gitignore
 ```
 
-## Instalación
+## 📚 Documentación y evidencias
 
-Requisitos: [Node.js](https://nodejs.org/) 18 o superior y Git.
+| Documento | Descripción |
+|-----------|-------------|
+| 📊 [Casos de prueba (Excel)](docs/Casos_de_prueba_Buggy_Cars.xlsx) | Los 5 casos con precondiciones, datos, pasos, resultado esperado y obtenido |
+| 📝 [Reporte de defectos (Word)](docs/Reporte_de_defectos_Buggy_Cars.docx) | DEF-01 y DEF-02 con pasos para reproducir y evidencias |
+| 📄 [Casos de prueba (Markdown)](docs/casos-de-prueba.md) | Versión para leer directamente en GitHub |
+| 📄 [Reporte de defectos (Markdown)](docs/reporte-de-defectos.md) | Versión para leer directamente en GitHub |
 
-```bash
-git clone <url-del-repositorio>
-cd <carpeta-del-repositorio>
-npm install
-npx playwright install chromium
-```
+### Ejecución automatizada
 
-> El archivo `.npmrc` tiene `ignore-scripts=true` por seguridad. Por eso el navegador no se descarga solo durante `npm install` y hay que instalarlo con `npx playwright install chromium`.
+<div align="center">
+  <img src="evidencias/reporte-automatizados.png" alt="Reporte HTML de Playwright" width="850">
+</div>
 
-## Ejecución
+### Casos manuales
 
-```bash
-# Todos los tests (se abre el navegador, headless: false)
-npx playwright test
+<table>
+  <tr>
+    <th>Caso 4 · Clave de 8 caracteres aceptada</th>
+    <th>Caso 5 · Nombre vacío rechazado</th>
+  </tr>
+  <tr>
+    <td><img src="evidencias/caso4-03-resultado.png" alt="Caso 4" width="420"></td>
+    <td><img src="evidencias/caso5-02-nombre-vacio.png" alt="Caso 5" width="420"></td>
+  </tr>
+</table>
 
-# Un archivo en particular
-npx playwright test tests/hu01-registro.spec.ts
-npx playwright test tests/hu03-votacion.spec.ts
+Todas las capturas están en la carpeta [`evidencias/`](evidencias/).
 
-# Reporte HTML de la última ejecución
-npx playwright show-report
+---
 
-# Modo UI
-npx playwright test --ui
-```
+<div align="center">
 
-También están los atajos `npm test`, `npm run report` y `npm run test:ui`.
+Hecho por **Guillermo José Gómez Aguilera** · UMG 2026
 
-## Casos de prueba
-
-| Caso | HU | Criterio | Tipo | Resultado | Defecto |
-|------|----|----------|------|-----------|---------|
-| Caso 1 · Registro con confirmación de clave distinta | HU-1 | C4 | Automatizado | ✅ Pasa | — |
-| Caso 2 · Registro con clave de 6 caracteres que cumple la historia | HU-1 | C2 | Automatizado | ❌ Falla | DEF-01 |
-| Caso 3 · Votar sin iniciar sesión | HU-3 | C4 | Automatizado | ✅ Pasa | — |
-| Caso 4 · Cambiar la clave por una de 8 caracteres | HU-2 | C2 | Manual | ❌ Falla | DEF-02 |
-| Caso 5 · Guardar el perfil con el nombre vacío | HU-2 | C3 | Manual | ✅ Pasa | — |
-
-> **El Caso 2 falla a propósito.** El sitio rechaza una clave que cumple la HU-1, y eso es un defecto. El test se dejó esperando el resultado que pide la historia, sin modificarlo para que pase. Al ejecutar la suite el resultado esperado es **2 passed, 1 failed**.
-
-- Detalle de los casos: [docs/casos-de-prueba.md](docs/casos-de-prueba.md)
-- Defectos: [docs/reporte-de-defectos.md](docs/reporte-de-defectos.md)
-
-## Evidencia
-
-Ejecución de los tests automatizados:
-
-![Reporte de Playwright](evidencias/reporte-automatizados.png)
-
-Las capturas de los casos manuales (Caso 4 y Caso 5) están en [evidencias/](evidencias/) y enlazadas en [docs/casos-de-prueba.md](docs/casos-de-prueba.md).
+</div>

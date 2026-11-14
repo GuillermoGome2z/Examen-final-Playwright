@@ -7,8 +7,8 @@
 
 | ID | Título | Caso | Severidad | Prioridad | Estado |
 |----|--------|------|-----------|-----------|--------|
-| DEF-01 | El registro rechaza una clave de 6 caracteres que cumple la HU-1 | Caso 2 | Alta | Alta | Abierto |
-| DEF-02 | El perfil acepta una clave nueva de menos de 10 caracteres | Caso 4 | Alta | Alta | Abierto |
+| DEF-01 | El registro rechaza una clave de 6 caracteres que cumple la HU-1 | Caso 2 | Alta | P1 | Abierto |
+| DEF-02 | El perfil acepta una clave nueva de menos de 10 caracteres | Caso 4 | Alta | P2 | Abierto |
 
 ---
 
@@ -19,7 +19,7 @@
 | **Historia / Criterio** | HU-1 · C2: la clave debe tener mínimo 6 caracteres e incluir una letra mayúscula y un carácter especial |
 | **Caso de prueba** | Caso 2 (automatizado) · `tests/hu01-registro.spec.ts` |
 | **Severidad** | Alta |
-| **Prioridad** | Alta |
+| **Prioridad** | P1 |
 | **Ambiente** | https://buggy.justtestit.org/register · Chromium 149 · Windows 11 |
 | **Precondición** | No haber iniciado sesión |
 
@@ -47,7 +47,7 @@
 | **Historia / Criterio** | HU-2 · C2: la nueva clave debe tener mínimo 10 caracteres e incluir mayúscula, minúscula, número y carácter especial |
 | **Caso de prueba** | Caso 4 (manual) |
 | **Severidad** | Alta |
-| **Prioridad** | Alta |
+| **Prioridad** | P2 |
 | **Ambiente** | https://buggy.justtestit.org/profile · Chromium 149 · Windows 11 |
 | **Precondición** | Usuario `16429_1035` registrado con la clave `Qa!16429x` |
 
