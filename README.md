@@ -36,7 +36,7 @@ Este repositorio reúne el plan de pruebas de tres historias de usuario del siti
 
 - **3 casos automatizados** con Playwright y TypeScript, organizados con el patrón **Page Object Model**.
 - **2 casos manuales** ejecutados en el navegador, con capturas de pantalla como evidencia.
-- **Tabla de casos de prueba** en Excel y **reporte de defectos** en Word.
+- **Tabla de casos de prueba** en Excel y **reporte de defectos** en Word, también disponibles en [Google Drive](https://drive.google.com/drive/folders/1p000oVWDELipH7J1gQtASPmAvEW3IyCW?usp=sharing).
 
 ## 📖 Historias de usuario
 
@@ -132,6 +132,9 @@ También están disponibles los atajos `npm test`, `npm run report` y `npm run t
 ```
 
 ## 📚 Documentación y evidencias
+
+> [!IMPORTANT]
+> 📂 **Documentos en Google Drive:** [Abrir carpeta](https://drive.google.com/drive/folders/1p000oVWDELipH7J1gQtASPmAvEW3IyCW?usp=sharing)
 
 | Documento | Descripción |
 |-----------|-------------|
