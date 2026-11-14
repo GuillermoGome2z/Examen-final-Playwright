@@ -1,0 +1,18 @@
+{
+  "name": "buggy-cars-rating-playwright",
+  "version": "1.0.0",
+  "description": "Pruebas automatizadas con Playwright + TypeScript sobre Buggy Cars Rating",
+  "scripts": {
+    "test": "playwright test",
+    "report": "playwright show-report",
+    "test:ui": "playwright test --ui"
+  },
+  "keywords": [],
+  "author": "Guillermo Jose Gomez Aguilera",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.61.1",
+    "@types/node": "^26.6.6"
+  }
+}
